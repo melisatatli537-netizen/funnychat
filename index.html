@@ -3,14 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FunnyChat - Melisa Tatlı</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6749909027242957"
-     crossorigin="anonymous"></script>
+<title>FunnyChat 💕 - Sohbet</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background: #fce8ef;
+  background: #fbe9ef;
   margin: 0;
   height: 100vh;
   display: flex;
@@ -18,23 +16,31 @@ body {
   align-items: center;
 }
 
+/* Ana kap */
 .chat-container {
   width: 370px;
   max-width: 100%;
   height: 640px;
   background: #fff;
   border-radius: 20px;
-  box-shadow: 0 0 25px rgba(255, 192, 203, 0.5);
+  box-shadow: 0 0 20px rgba(255,182,193,0.5);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  position: relative;
 }
 
+/* Başlık */
 .header {
   background: #ffb6c1;
   color: white;
   padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.header-left {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -48,29 +54,38 @@ body {
   border: 2px solid #fff;
 }
 
+.header-title {
+  font-weight: bold;
+}
+
+.header small {
+  color: #fff;
+}
+
 .online-dot {
   width: 8px;
   height: 8px;
-  background: #fff;
+  background: #ff69b4;
   border-radius: 50%;
   display: inline-block;
   margin-left: 5px;
 }
 
+/* Sohbet alanı */
 .chat-box {
   flex: 1;
   padding: 12px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  background: #ffeef4;
+  background: #fdeef4;
 }
 
 .message {
   max-width: 80%;
   padding: 8px 10px;
   margin: 6px 0;
-  border-radius: 12px;
+  border-radius: 8px;
   position: relative;
   font-size: 14px;
   line-height: 1.4;
@@ -78,7 +93,7 @@ body {
 }
 
 .sent {
-  background: #ffdae0;
+  background: #ffe6ef;
   align-self: flex-end;
   color: #000;
   border-bottom-right-radius: 0;
@@ -98,10 +113,11 @@ body {
   margin-top: 2px;
 }
 
+/* Giriş alanı */
 .input-area {
   display: flex;
   align-items: center;
-  background: #ffe4ec;
+  background: #f9dfe7;
   padding: 8px;
   gap: 8px;
 }
@@ -124,7 +140,7 @@ body {
 .input-area button {
   background: none;
   border: none;
-  color: #ff6b93;
+  color: #ff69b4;
   font-size: 22px;
   cursor: pointer;
   padding: 6px 10px;
@@ -135,6 +151,7 @@ body {
   transform: scale(1.1);
 }
 
+/* Yazıyor baloncuğu */
 .typing-bubble {
   display: flex;
   align-items: center;
@@ -149,7 +166,7 @@ body {
 .typing-dot {
   width: 6px;
   height: 6px;
-  background: #ff91a4;
+  background: gray;
   border-radius: 50%;
   animation: blink 1.2s infinite;
 }
@@ -175,7 +192,7 @@ body {
 
 .voice-message i {
   font-size: 20px;
-  color: #ff6b93;
+  color: #ff69b4;
   cursor: pointer;
 }
 
@@ -189,7 +206,7 @@ body {
 .wave-bar {
   width: 3px;
   height: 8px;
-  background: #ff91a4;
+  background: #ff69b4;
   border-radius: 2px;
   animation: waveAnim 1.2s ease-in-out infinite;
 }
@@ -208,27 +225,19 @@ body {
   font-size: 12px;
   color: gray;
 }
-
-/* FunnyChat markası */
-.footer-brand {
-  position: absolute;
-  bottom: 8px;
-  right: 10px;
-  font-size: 11px;
-  color: #ff91a4;
-  opacity: 0.7;
-  user-select: none;
-}
 </style>
 </head>
 <body>
 <div class="chat-container">
   <div class="header">
-    <img src="melisa.jpg" alt="Melisa">
-    <div>
-      <strong>Melisa Tatlı</strong><br>
-      <small id="melisaStatus">çevrimiçi <span class="online-dot"></span></small>
+    <div class="header-left">
+      <img src="melisa.jpg" alt="Melisa">
+      <div>
+        <div class="header-title">Melisa Tatlı 💕</div>
+        <small id="melisaStatus">çevrimiçi <span class="online-dot"></span></small>
+      </div>
     </div>
+    <strong>FunnyChat 💬</strong>
   </div>
 
   <div class="chat-box" id="chat-box"></div>
@@ -239,8 +248,6 @@ body {
       <i id="buttonIcon" class="fa-solid fa-microphone"></i>
     </button>
   </div>
-
-  <div class="footer-brand">💬 FunnyChat</div>
 </div>
 
 <script>
@@ -253,7 +260,6 @@ const melisaStatus = document.getElementById('melisaStatus');
 let messageCount = 0;
 let melisaAvailable = true;
 
-// Melisa'nın konuşma tarzı
 const responses = [
   "meraba nasısn cnm 😊",
   "hmm bekle bi düşünyom sn bişey dicek gibisin",
@@ -275,7 +281,7 @@ function scrollToBottom() { chatBox.scrollTop = chatBox.scrollHeight; }
 function toggleSendButton() {
   const hasText = userInput.value.trim().length > 0;
   buttonIcon.className = hasText ? "fa-solid fa-paper-plane" : "fa-solid fa-microphone";
-  actionButton.style.color = hasText ? "#ff6b93" : "#ff6b93";
+  actionButton.style.color = hasText ? "#ff69b4" : "#ff69b4";
 }
 
 function formatTime(seconds) {
@@ -329,7 +335,7 @@ function sendMessage() {
               <div class="wave-bar"></div>
             </div>
             <span class="voice-duration" id="voiceTime">0:00</span>
-            <audio id="voiceAudio" src="ses1.mp3"></audio>
+            <audio id="voiceAudio" src="melisa2.mp3"></audio>
           </div>`;
         chatBox.appendChild(voiceDiv);
         scrollToBottom();
@@ -355,13 +361,12 @@ function sendMessage() {
           timeLabel.textContent = formatTime(audio.currentTime);
         });
 
-        // Ses dinlenince çevrimdışı ve zaman sayaç sistemi
         audio.addEventListener("ended", () => {
           playBtn.classList.replace("fa-pause", "fa-play");
           waveBars.forEach(b => b.style.animationPlayState = "paused");
 
           melisaStatus.innerHTML = "çevrimdışı";
-          melisaStatus.style.color = "#555";
+          melisaStatus.style.color = "#ccc";
 
           let minutes = 0;
           setInterval(() => {
@@ -386,7 +391,7 @@ function sendMessage() {
         chatBox.appendChild(melisaMsg);
         scrollToBottom();
       }
-      msg.querySelector('.status').style.color = '#ff6b93';
+      msg.querySelector('.status').style.color = '#ff69b4';
     }, responseDelay);
   }, typingDelay);
 }
